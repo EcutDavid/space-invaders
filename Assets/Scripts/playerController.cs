@@ -6,16 +6,22 @@ public class playerController : MonoBehaviour {
 	public float speedX;
 	public float padding;
 	public GameObject missilePrefab;
+	public AudioClip shootAudio;
+	public AudioClip diedAudio;
+	public bool died = false;
 
 	void Start () {
 		
 	}
 	
 	void Update () {
-		
+		if (died) {
+			return;
+		}
 		if (Input.GetKey (KeyCode.Space)) {
 			var exsitingPlayerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
 			if (exsitingPlayerMissiles.Length == 0) {
+				GetComponent<AudioSource> ().PlayOneShot (shootAudio);
  				Instantiate (missilePrefab, transform.position, transform.rotation);
 			}
 		}
@@ -33,9 +39,18 @@ public class playerController : MonoBehaviour {
 		);
 	}
 
+	public void repair() {
+		GetComponent<ParticleSystem> ().Stop ();
+	}
+
 	void OnTriggerEnter(Collider other) {
+		if (died) {
+			return;
+		}
 		if (other.tag != "PlayerMissile") {
-			Destroy (gameObject);
+			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
+			GetComponent<ParticleSystem> ().Play ();
+			died = true;
 		}
 	}
 }

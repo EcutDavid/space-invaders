@@ -5,6 +5,9 @@ using UnityEngine;
 public class invaderController : MonoBehaviour {
 	private bool died = false;
 	private Quaternion angularVelocity;
+	public AudioClip diedAudio;
+	public int score = 10;
+
 	void Start () {
 		angularVelocity = new Quaternion(
 			Random.Range(1f, 30f),
@@ -39,6 +42,12 @@ public class invaderController : MonoBehaviour {
 			var collider = GetComponent<MeshCollider> ();
 			Destroy (collider);
 			tag = "Died";
+			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
+			FindObjectOfType<invadersController> ().score += score;
+			if (GameObject.FindGameObjectsWithTag ("Invader").Length == 0) {
+				var invadersController = FindObjectOfType<invadersController> ();
+				invadersController.playerWin = true;
+			}
 		}
 	}
 }

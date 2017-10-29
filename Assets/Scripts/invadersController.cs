@@ -10,13 +10,33 @@ public class invadersController : MonoBehaviour
 	public Vector2 speed;
 	private bool movingRight = false;
 	public int missileMax = 4;
+	public int score = 0;
 	public GameObject missilePrefab;
+	public AudioClip shootAudio;
+	public bool invadersWin;
+	private float restartTimer = 99f;
+	public bool playerWin = false;
 
 	// Use this for initialization
 	void Start ()
 	{
+	}
+
+	public void cleanAndRestart() {
+		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
+		var player = FindObjectOfType<playerController> ();
+		foreach (var item in invaders) {
+			Destroy (item);
+		}
+		score = 0;
+		player.repair ();
+		player.died = false;
+		restartTimer = 0;
+	}
+
+	public void restartGame() {
 		// As a start, assume there are just three types of invaders
-		if (invadersPrefabList.Length == 3) {
+		if (invadersPrefabList.Length == 3 && GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
 			for (int i = 0; i < 11; i++) {
 				for (int j = 0; j < 5; j++) {
 					int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
@@ -76,6 +96,9 @@ public class invadersController : MonoBehaviour
 					item.transform.position.y + yInc,
 					0f
 				);
+				if (Math.Abs (item.transform.position.y) > (cameraOrthographicSize + 0.4)) {
+					FindObjectOfType<playerController> ().died = true;
+				}
 			}
 		}
 	}
@@ -99,6 +122,9 @@ public class invadersController : MonoBehaviour
 
 			missileCount -= GameObject.FindGameObjectsWithTag ("InvaderMissile").Length;
 
+			if (missileCount > 0) {
+				GetComponent<AudioSource> ().PlayOneShot (shootAudio, 0.2f);
+			}
 			var attackedInvaderIndexList = new List<int> ();
 			while (missileCount > 0) {
 				var index = UnityEngine.Random.Range (0, lastRowinvaders.Count);
@@ -115,10 +141,20 @@ public class invadersController : MonoBehaviour
 	void Update ()
 	{
 		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
-		if (invaders.Length > 0) {
+		var player = FindObjectOfType<playerController> ();
+
+		if (invaders.Length > 0 && player.died == false && restartTimer > 1f) {
 			updateSpeedAndPosition (invaders);
 			cleanUp(invaders);
 			attack (invaders);
+		}
+		if (restartTimer < 1f) {
+			restartTimer += Time.deltaTime;
+		} else {
+			if (restartTimer > 1f && restartTimer < 2f) {
+				restartTimer = 99f;
+				restartGame ();
+			}
 		}
 	}
 }

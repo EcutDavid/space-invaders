@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Invader
   - PlayerMissile
+  - Died
+  - InvaderMissile
+  - Restarter
   layers:
   - Default
   - TransparentFX
