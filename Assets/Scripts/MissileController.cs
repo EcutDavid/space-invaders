@@ -22,4 +22,11 @@ public class MissileController : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag != "Player") {
+			Destroy (gameObject);
+		}
+	}
 }

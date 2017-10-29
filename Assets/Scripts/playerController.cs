@@ -16,7 +16,7 @@ public class playerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space)) {
 			var exsitingPlayerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
 			if (exsitingPlayerMissiles.Length == 0) {
-				Instantiate (missilePrefab, transform.position, transform.rotation);
+ 				Instantiate (missilePrefab, transform.position, transform.rotation);
 			}
 		}
 		if (Input.GetKey (KeyCode.LeftArrow)) {
@@ -31,5 +31,11 @@ public class playerController : MonoBehaviour {
 			transform.position.y,
 			0
 		);
+	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag != "PlayerMissile") {
+			Destroy (gameObject);
+		}
 	}
 }

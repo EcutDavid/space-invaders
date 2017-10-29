@@ -481,7 +481,7 @@ MonoBehaviour:
   - {fileID: 1892644960982792, guid: 936359f133d2f496abb6d661b874360b, type: 2}
   - {fileID: 1562731180478206, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
   padding: 1
-  speed: {x: 4, y: -3}
+  speed: {x: 4, y: -1}
 --- !u!4 &709303015
 Transform:
   m_ObjectHideFlags: 0

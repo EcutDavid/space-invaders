@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33719566770108518}
   - component: {fileID: 23164574747425034}
   - component: {fileID: 114458892697056332}
+  - component: {fileID: 54904368392455052}
+  - component: {fileID: 64614281446452070}
   m_Layer: 0
   m_Name: InvaderC
   m_TagString: Invader
@@ -80,6 +82,35 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1582890381070584}
+  m_Mesh: {fileID: 4300004, guid: 7200216ec2a47479db5beb35883f76d9, type: 3}
+--- !u!54 &54904368392455052
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582890381070584}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &64614281446452070
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1582890381070584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300004, guid: 7200216ec2a47479db5beb35883f76d9, type: 3}
 --- !u!114 &114458892697056332
 MonoBehaviour:
