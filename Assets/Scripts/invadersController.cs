@@ -9,20 +9,21 @@ public class invadersController : MonoBehaviour
 	public float padding;
 	public Vector2 speed;
 	private bool movingRight = false;
-	public int missileMax = 4;
+	private int missileMax = 4;
 	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
 	public bool invadersWin;
 	private float restartTimer = 99f;
 	public bool playerWin = false;
+	public int gameLevel = 1;
 
 	// Use this for initialization
 	void Start ()
 	{
 	}
 
-	public void cleanAndRestart() {
+	public void cleanAndRestart(int level = 1) {
 		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
 		var player = FindObjectOfType<playerController> ();
 		foreach (var item in invaders) {
@@ -34,7 +35,18 @@ public class invadersController : MonoBehaviour
 		restartTimer = 0;
 	}
 
-	public void restartGame() {
+	public void restartGame(int level = 1) {
+		gameLevel = level;
+		switch (gameLevel) {
+		case 1:
+			missileMax = 4;
+			break;
+		case 2: 
+			missileMax = 8;
+			break;
+		default:
+			break;
+		}
 		// As a start, assume there are just three types of invaders
 		if (invadersPrefabList.Length == 3 && GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
 			for (int i = 0; i < 11; i++) {

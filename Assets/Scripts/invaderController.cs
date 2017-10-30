@@ -45,8 +45,13 @@ public class invaderController : MonoBehaviour {
 			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
 			FindObjectOfType<invadersController> ().score += score;
 			if (GameObject.FindGameObjectsWithTag ("Invader").Length == 0) {
+				
 				var invadersController = FindObjectOfType<invadersController> ();
-				invadersController.playerWin = true;
+				if (invadersController.gameLevel == 1) {
+					invadersController.restartGame (2);
+				} else {
+					invadersController.playerWin = true;
+				}
 			}
 		}
 	}
