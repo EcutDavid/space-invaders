@@ -37,18 +37,21 @@ public class invadersController : MonoBehaviour
 
 	public void restartGame(int level = 1) {
 		gameLevel = level;
-		switch (gameLevel) {
-		case 1:
-			missileMax = 4;
-			break;
-		case 2: 
-			missileMax = 8;
-			break;
-		default:
-			break;
-		}
-		// As a start, assume there are just three types of invaders
-		if (invadersPrefabList.Length == 3 && GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
+        //switch (gameLevel) {
+        //case 1:
+        //	missileMax = 4;
+        //	break;
+        //case 2: 
+        //	missileMax = 8;
+        //	break;
+        //default:
+        //	break;
+        //}
+
+        missileMax = gameLevel * 2; //so defficult to me.
+
+        // As a start, assume there are just three types of invaders
+        if (invadersPrefabList.Length == 3 && GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
 			for (int i = 0; i < 11; i++) {
 				for (int j = 0; j < 5; j++) {
 					int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
