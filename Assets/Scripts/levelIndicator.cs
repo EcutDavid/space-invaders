@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class levelIndicator : MonoBehaviour {
-	private invadersController invadersController;
-	// Use this for initialization
+public class LevelIndicator : MonoBehaviour {
+	private GameController gameController;
 	void Start () {
-		invadersController = FindObjectOfType<invadersController> ();
+		gameController = FindObjectOfType<GameController> ();
 		gameObject.SetActive (false);
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Level: " + invadersController.gameLevel.ToString ();
+		GetComponent<Text> ().text = "Level: " + gameController.gameLevel.ToString ();
 	}
 }

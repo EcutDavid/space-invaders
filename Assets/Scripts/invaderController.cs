@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class invaderController : MonoBehaviour {
+public class InvaderController : MonoBehaviour {
 	private bool died = false;
 	private Quaternion angularVelocity;
 	public AudioClip diedAudio;
@@ -30,11 +30,13 @@ public class invaderController : MonoBehaviour {
 				this.transform.position.y + 30f * Time.deltaTime,
 				this.transform.position.z
 			);
+			// TODO: makes the invader looks smaller or add some particles?
 		}
 	}
 
 	void OnCollisionEnter(Collision collision)
 	{
+		// Personally, I don't like this kind of hard code style, I should figure out how to improve this part in my next Unity application
 		if (collision.gameObject.tag == "PlayerMissile") {
 			died = true;
 			var rigidBody = GetComponent<Rigidbody> ();
@@ -43,14 +45,14 @@ public class invaderController : MonoBehaviour {
 			Destroy (collider);
 			tag = "Died";
 			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
-			FindObjectOfType<invadersController> ().score += score;
+			FindObjectOfType<GameController> ().score += score;
 			if (GameObject.FindGameObjectsWithTag ("Invader").Length == 0) {
-				
-				var invadersController = FindObjectOfType<invadersController> ();
-				if (invadersController.gameLevel == 1) {
-					invadersController.restartGame (2);
+				var gameController = FindObjectOfType<GameController> ();
+				// TODO: change here to `maxGameLevel`, so there will be no 1, 2, 3, etc.
+				if (gameController.gameLevel == 1) {
+					gameController.restartGame (2);
 				} else {
-					invadersController.playerWin = true;
+					gameController.playerWin = true;
 				}
 			}
 		}

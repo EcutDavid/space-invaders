@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 	public float speedX;
 	public float padding;
 	public GameObject missilePrefab;
@@ -10,10 +9,6 @@ public class playerController : MonoBehaviour {
 	public AudioClip diedAudio;
 	public bool died = false;
 
-	void Start () {
-		
-	}
-	
 	void Update () {
 		if (died) {
 			return;

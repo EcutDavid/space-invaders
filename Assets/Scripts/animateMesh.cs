@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class animateMesh : MonoBehaviour {
+public class AnimateMesh : MonoBehaviour {
 	public MeshFilter[] prefabList;
 	private float timeCounter;
 	private int meshSwithcer = 0;
