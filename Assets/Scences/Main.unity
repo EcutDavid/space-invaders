@@ -4723,7 +4723,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 709303014}
         m_MethodName: cleanAndRestart
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4856,7 +4856,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 709303014}
         m_MethodName: cleanAndRestart
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5001,6 +5001,7 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 114092448444628490, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
     - {fileID: 64867315798594620, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
+    - {fileID: 95013271703632326, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1345448546
@@ -5265,9 +5266,15 @@ Prefab:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 23682671169424484, guid: 936359f133d2f496abb6d661b874360b,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fee9bf6861dc493eb917a6aa0c3ca31, type: 2}
     m_RemovedComponents:
     - {fileID: 114805778149093302, guid: 936359f133d2f496abb6d661b874360b, type: 2}
     - {fileID: 64941664283960258, guid: 936359f133d2f496abb6d661b874360b, type: 2}
+    - {fileID: 95763018173963740, guid: 936359f133d2f496abb6d661b874360b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 936359f133d2f496abb6d661b874360b, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1530120859 stripped
@@ -5509,6 +5516,7 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 114508811484763426, guid: 50b66e0a7fe00429f9ef0cc8bd3510e1, type: 2}
     - {fileID: 64614281446452070, guid: 50b66e0a7fe00429f9ef0cc8bd3510e1, type: 2}
+    - {fileID: 95032192013875426, guid: 50b66e0a7fe00429f9ef0cc8bd3510e1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 50b66e0a7fe00429f9ef0cc8bd3510e1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1903725466
