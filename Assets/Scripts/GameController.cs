@@ -5,19 +5,25 @@ using System;
 
 public class GameController : MonoBehaviour
 {
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
+
 	public GameObject[] invadersPrefabList;
 	public float padding;
 	public Vector2 speed;
 	private bool movingRight = false;
 	private int missileMax = 4;
-	// TODO: score should not be there
 	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
-	public bool invadersWin;
 	private float restartTimer = 99f;
 	public bool playerWin = false;
 	public int gameLevel = 1;
+
+	void Start () {
+		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+	}
 
 	public void cleanAndRestart(int level = 1) {
 		score = 0;
@@ -30,6 +36,8 @@ public class GameController : MonoBehaviour
 	}
 
 	public void restartGame(int level = 1) {
+		Cursor.visible = false;
+
 		gameLevel = level;
 		switch (gameLevel) {
 		case 1:
@@ -158,6 +166,10 @@ public class GameController : MonoBehaviour
 		var player = FindObjectOfType<PlayerController> ();
 
 		var gameNotHasResult = invaders.Length > 0 && player.died == false;
+		if (player.died && !Cursor.visible) {
+			Cursor.visible = true;
+			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+		}
 		if (gameNotHasResult && restartTimer > 1f) {
 			updateSpeedAndPosition (invaders);
 			cleanUp(invaders);
