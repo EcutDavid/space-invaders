@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class invadersController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
 	public GameObject[] invadersPrefabList;
 	public float padding;
 	public Vector2 speed;
 	private bool movingRight = false;
 	private int missileMax = 4;
+	// TODO: score should not be there
 	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
@@ -18,20 +19,13 @@ public class invadersController : MonoBehaviour
 	public bool playerWin = false;
 	public int gameLevel = 1;
 
-	// Use this for initialization
-	void Start ()
-	{
-	}
-
 	public void cleanAndRestart(int level = 1) {
-		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
-		var player = FindObjectOfType<playerController> ();
-		foreach (var item in invaders) {
-			Destroy (item);
-		}
 		score = 0;
+		var player = FindObjectOfType<PlayerController> ();
 		player.repair ();
 		player.died = false;
+		cleanupExistingInvaders ();
+		// TODO: adding comment about what this variable does
 		restartTimer = 0;
 	}
 
@@ -42,15 +36,16 @@ public class invadersController : MonoBehaviour
 			missileMax = 4;
 			break;
 		case 2: 
-			missileMax = 8;
+			missileMax = 6;
 			break;
 		default:
 			break;
 		}
-		// As a start, assume there are just three types of invaders
-		if (invadersPrefabList.Length == 3 && GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
+		cleanupExistingInvaders ();
+		if (GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
 			for (int i = 0; i < 11; i++) {
 				for (int j = 0; j < 5; j++) {
+					// As a start, assume there are just three types of invaders
 					int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
 					Instantiate<GameObject> (
 						invadersPrefabList [prefabIndex],
@@ -60,6 +55,13 @@ public class invadersController : MonoBehaviour
 					);
 				}
 			}
+		}
+	}
+
+	private void cleanupExistingInvaders() {
+		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
+		foreach (var item in invaders) {
+			Destroy (item);
 		}
 	}
 
@@ -109,7 +111,7 @@ public class invadersController : MonoBehaviour
 					0f
 				);
 				if (Math.Abs (item.transform.position.y) > (cameraOrthographicSize + 0.4)) {
-					FindObjectOfType<playerController> ().died = true;
+					FindObjectOfType<PlayerController> ().died = true;
 				}
 			}
 		}
@@ -131,18 +133,18 @@ public class invadersController : MonoBehaviour
 		}
 		if (lastRowinvaders.Count > 0) {
 			var missileCount = Mathf.Min (missileMax, lastRowinvaders.Count);
+			var newMissileCount = missileCount - GameObject.FindGameObjectsWithTag ("InvaderMissile").Length;
 
-			missileCount -= GameObject.FindGameObjectsWithTag ("InvaderMissile").Length;
-
-			if (missileCount > 0) {
+			if (newMissileCount > 0) {
 				GetComponent<AudioSource> ().PlayOneShot (shootAudio, 0.2f);
 			}
+			// This list is being used to make the missiles being fired by "random invaders"
 			var attackedInvaderIndexList = new List<int> ();
-			while (missileCount > 0) {
+			while (newMissileCount > 0) {
 				var index = UnityEngine.Random.Range (0, lastRowinvaders.Count);
 				if (!attackedInvaderIndexList.Exists (item => item == index)) {
 					attackedInvaderIndexList.Add (index);
-					missileCount--;
+					newMissileCount--;
 					var invader = lastRowinvaders [index];
 					Instantiate(missilePrefab, invader.transform.position, invader.transform.rotation);	
 				}
@@ -153,9 +155,10 @@ public class invadersController : MonoBehaviour
 	void Update ()
 	{
 		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
-		var player = FindObjectOfType<playerController> ();
+		var player = FindObjectOfType<PlayerController> ();
 
-		if (invaders.Length > 0 && player.died == false && restartTimer > 1f) {
+		var gameNotHasResult = invaders.Length > 0 && player.died == false;
+		if (gameNotHasResult && restartTimer > 1f) {
 			updateSpeedAndPosition (invaders);
 			cleanUp(invaders);
 			attack (invaders);

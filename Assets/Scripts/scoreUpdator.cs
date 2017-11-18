@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class scoreUpdator : MonoBehaviour {
-	private invadersController invadersController;
-	// Use this for initialization
+public class ScoreUpdator : MonoBehaviour {
+	private GameController gameController;
+
 	void Start () {
-		invadersController = FindObjectOfType<invadersController> ();
+		gameController = FindObjectOfType<GameController> ();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Your Score: " + invadersController.score.ToString ();
+		GetComponent<Text> ().text = "Your Score: " + gameController.score.ToString ();
 	}
 }

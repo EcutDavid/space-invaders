@@ -1,19 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class restartController : MonoBehaviour {
+public class RestartController : MonoBehaviour {
 	private bool restartingHandled = false;
 	private bool reinited = false;
 
-	// Use this for initialization
 	void Start () {
 		reinit ();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		var player = FindObjectOfType<playerController> ();
+		var player = FindObjectOfType<PlayerController> ();
 		if (player.died && !restartingHandled) {
 			gameObject.transform.position = new Vector3 (
 				gameObject.transform.position.x - 999f,
