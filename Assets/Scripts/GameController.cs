@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
 		missileMax = 3 + gameLevel;
 		cleanupExistingInvaders ();
 		for (int i = 0; i < 11; i++) {
-			for (int j = 0; j < 1; j++) {
+			for (int j = 0; j < 5; j++) {
 				// As a start, assume there are just three types of invaders
 				int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
 				Instantiate<GameObject> (
