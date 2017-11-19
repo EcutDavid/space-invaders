@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip shootAudio;
 	public AudioClip diedAudio;
 	public bool died = false;
+	public int lives = 3;
+	PlayerLivesIndicator playerLivesIndicator;
+
+	void Start() {
+		playerLivesIndicator = FindObjectOfType<PlayerLivesIndicator>();
+	}
 
 	void Update () {
 		if (died) {
@@ -34,8 +40,10 @@ public class PlayerController : MonoBehaviour {
 		);
 	}
 
-	public void repair() {
+	public void reborn() {
 		GetComponent<ParticleSystem> ().Stop ();
+		lives = 3;
+		playerLivesIndicator.reinitLives();
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -43,9 +51,14 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		if (other.tag != "PlayerMissile") {
+			Destroy (other.gameObject);
 			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
-			GetComponent<ParticleSystem> ().Play ();
-			died = true;
+			if(lives == 1) {
+				GetComponent<ParticleSystem> ().Play ();
+				died = true;	
+			} else {
+				lives--;
+			}
 		}
 	}
 }

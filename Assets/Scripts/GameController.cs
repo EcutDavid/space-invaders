@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 	public AudioClip shootAudio;
 	public bool playerWin = false;
 	public int gameLevel = 1;
+	public int gameLevelMax = 4;
 
 	private bool movingRight = false;
 	private int missileMax = 4;
@@ -27,29 +28,24 @@ public class GameController : MonoBehaviour
 		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 	}
 
+	public void invadersStopFireAWhile() {
+		invadersResponseTimer = 0;
+	}
+
 	public void cleanAndRestart() {
 		score = 0;
 		var player = FindObjectOfType<PlayerController> ();
-		player.repair ();
+		player.reborn ();
 		player.died = false;
-		restartGame ();
+		startNewLevel ();
 	}
 
-	public void restartGame(int level = 1) {
+	public void startNewLevel(int level = 1) {
 		Cursor.visible = false;
-		invadersResponseTimer = 0;
+		invadersStopFireAWhile ();
 
 		gameLevel = level;
-		switch (gameLevel) {
-		case 1:
-			missileMax = 4;
-			break;
-		case 2: 
-			missileMax = 6;
-			break;
-		default:
-			break;
-		}
+		missileMax = 3 + gameLevel;
 		cleanupExistingInvaders ();
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 5; j++) {

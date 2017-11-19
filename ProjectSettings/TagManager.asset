@@ -9,6 +9,7 @@ TagManager:
   - Died
   - InvaderMissile
   - Restarter
+  - PlayerLife
   layers:
   - Default
   - TransparentFX

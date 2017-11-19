@@ -49,8 +49,8 @@ public class InvaderController : MonoBehaviour {
 			if (GameObject.FindGameObjectsWithTag ("Invader").Length == 0) {
 				var gameController = FindObjectOfType<GameController> ();
 				// TODO: change here to `maxGameLevel`, so there will be no 1, 2, 3, etc.
-				if (gameController.gameLevel == 1) {
-					gameController.restartGame (2);
+				if (gameController.gameLevel < gameController.gameLevelMax) {
+					gameController.startNewLevel (gameController.gameLevel + 1);
 				} else {
 					gameController.playerWin = true;
 				}
