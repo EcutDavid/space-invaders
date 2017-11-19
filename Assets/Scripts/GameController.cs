@@ -12,31 +12,32 @@ public class GameController : MonoBehaviour
 	public GameObject[] invadersPrefabList;
 	public float padding;
 	public Vector2 speed;
-	private bool movingRight = false;
-	private int missileMax = 4;
 	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
-	private float restartTimer = 99f;
 	public bool playerWin = false;
 	public int gameLevel = 1;
+
+	private bool movingRight = false;
+	private int missileMax = 4;
+	private float invadersResponseTimer = 0;
+	private float invadersStartFiringSecondCount = 2f;
 
 	void Start () {
 		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 	}
 
-	public void cleanAndRestart(int level = 1) {
+	public void cleanAndRestart() {
 		score = 0;
 		var player = FindObjectOfType<PlayerController> ();
 		player.repair ();
 		player.died = false;
-		cleanupExistingInvaders ();
-		// TODO: adding comment about what this variable does
-		restartTimer = 0;
+		restartGame ();
 	}
 
 	public void restartGame(int level = 1) {
 		Cursor.visible = false;
+		invadersResponseTimer = 0;
 
 		gameLevel = level;
 		switch (gameLevel) {
@@ -50,18 +51,16 @@ public class GameController : MonoBehaviour
 			break;
 		}
 		cleanupExistingInvaders ();
-		if (GameObject.FindGameObjectsWithTag("Invader").Length == 0) {
-			for (int i = 0; i < 11; i++) {
-				for (int j = 0; j < 5; j++) {
-					// As a start, assume there are just three types of invaders
-					int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
-					Instantiate<GameObject> (
-						invadersPrefabList [prefabIndex],
-						new Vector3 (transform.position.x + (float)(1.5 * i), transform.position.y - (float)(j * 1.5), 0),
-						Quaternion.identity,
-						transform.parent
-					);
-				}
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 5; j++) {
+				// As a start, assume there are just three types of invaders
+				int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
+				Instantiate<GameObject> (
+					invadersPrefabList [prefabIndex],
+					new Vector3 (transform.position.x + (float)(1.5 * i), transform.position.y - (float)(j * 1.5), 0),
+					Quaternion.identity,
+					transform.parent
+				);
 			}
 		}
 	}
@@ -165,22 +164,18 @@ public class GameController : MonoBehaviour
 		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
 		var player = FindObjectOfType<PlayerController> ();
 
-		var gameNotHasResult = invaders.Length > 0 && player.died == false;
 		if (player.died && !Cursor.visible) {
 			Cursor.visible = true;
 			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 		}
-		if (gameNotHasResult && restartTimer > 1f) {
+		var gameNotHasResult = invaders.Length > 0 && player.died == false;
+		if (gameNotHasResult) {
 			updateSpeedAndPosition (invaders);
 			cleanUp(invaders);
-			attack (invaders);
-		}
-		if (restartTimer < 1f) {
-			restartTimer += Time.deltaTime;
-		} else {
-			if (restartTimer > 1f && restartTimer < 2f) {
-				restartTimer = 99f;
-				restartGame ();
+			if (invadersResponseTimer > invadersStartFiringSecondCount) {
+				attack (invaders);
+			} else {
+				invadersResponseTimer += Time.deltaTime;
 			}
 		}
 	}
