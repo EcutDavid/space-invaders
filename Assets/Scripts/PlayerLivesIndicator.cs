@@ -23,7 +23,6 @@ public class PlayerLivesIndicator : MonoBehaviour {
 
 	void Update () {
 		var lives = GameObject.FindGameObjectsWithTag ("PlayerLife");
-		Debug.Log (lives.Length);
 		if (lives.Length > 0) {
 			if (playerController.lives < lives.Length) {
 				// Destory just one is enough, since player won't die two times in same frame
