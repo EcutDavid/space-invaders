@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
 
 	public void restartGame(int level = 1) {
 		Cursor.visible = false;
+		invadersResponseTimer = 0;
 
 		gameLevel = level;
 		switch (gameLevel) {

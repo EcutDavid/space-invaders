@@ -572,7 +572,7 @@ Transform:
   m_GameObject: {fileID: 322338307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -9.5, z: 0}
-  m_LocalScale: {x: 0.04545456, y: 0.04545456, z: 0.04545456}
+  m_LocalScale: {x: 0.03545456, y: 0.04545456, z: 0.04545456}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -724,7 +724,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 735573068
+  randomSeed: 196820474
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4440,7 +4440,7 @@ MonoBehaviour:
   - {fileID: 1892644960982792, guid: 936359f133d2f496abb6d661b874360b, type: 2}
   - {fileID: 1562731180478206, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
   padding: 1
-  speed: {x: 2, y: -1}
+  speed: {x: 1.8, y: -0.7}
   score: 0
   missilePrefab: {fileID: 1973852932013990, guid: c45317ac30a3142a4a924dff8a4fe383,
     type: 2}
