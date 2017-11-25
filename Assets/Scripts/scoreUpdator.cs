@@ -11,10 +11,8 @@ public class ScoreUpdator : MonoBehaviour {
 	}
 
 	void Update () {
-		// This is a bad way to controls the display of this UI Text
-		if (gameController.score < 0) {
-			return;
+		if (gameController.gameStarted) {
+			textComponent.text = "Score: " + gameController.score.ToString ();
 		}
-		textComponent.text = "Score: " + gameController.score.ToString ();
 	}
 }

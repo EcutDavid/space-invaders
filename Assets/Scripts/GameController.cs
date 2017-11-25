@@ -14,11 +14,13 @@ public class GameController : MonoBehaviour
 	public GameObject[] invadersPrefabList;
 	public float padding;
 	public Vector2 speed;
-	public int score = -10;
+	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
 	public bool playerWin = false;
 	public int gameLevel = 1;
+	// Sorry for one more flag...
+	public bool gameStarted = false;
 	public int gameLevelMax = 4;
 
 	private bool movingRight = false;
@@ -31,10 +33,12 @@ public class GameController : MonoBehaviour
 	}
 
 	public void invadersStopFireAWhile() {
+		// This counter will 
 		invadersResponseTimer = 0;
 	}
 
 	public void cleanAndRestart() {
+		gameStarted = true;
 		score = 0;
 		var player = FindObjectOfType<PlayerController> ();
 		player.reborn ();
