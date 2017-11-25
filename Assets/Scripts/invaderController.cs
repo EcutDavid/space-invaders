@@ -5,15 +5,16 @@ using UnityEngine;
 public class InvaderController : MonoBehaviour {
 	private bool died = false;
 	private Vector3 angularVelocity;
+	private Vector3 angle = Vector3.zero;
 	public AudioClip diedAudio;
 	public int score = 10;
 	public ParticleSystem Particles;
 
-	private float diedSpeedY = 12f;
+	private float diedSpeedY = 9f;
 
 	void Start () {
 		angularVelocity = new Vector3(
-			Random.Range(10f, 30f),
+			Random.Range(0f, 0f),
 			Random.Range(3f, 9f),
 			Random.Range(3f, 9f)
 		);
@@ -21,11 +22,11 @@ public class InvaderController : MonoBehaviour {
 	
 	void Update () {
 		if (died) {
-			var angles = transform.rotation.eulerAngles;
-			angles.x += angularVelocity.x;
-			angles.y += angularVelocity.y;
-			angles.z += angularVelocity.z;
-			transform.rotation = Quaternion.Euler(angles);
+			// https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html
+			angle.x += angularVelocity.x;
+			angle.y += angularVelocity.y;
+			angle.z += angularVelocity.z;
+			transform.rotation = Quaternion.Euler(angle);
 
 			this.transform.position = new Vector3 (
 				this.transform.position.x,
