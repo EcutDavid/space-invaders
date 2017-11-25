@@ -5,14 +5,16 @@ using System;
 
 public class GameController : MonoBehaviour
 {
+	#region cursor stuff
 	public Texture2D cursorTexture;
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
+	#endregion
 
 	public GameObject[] invadersPrefabList;
 	public float padding;
 	public Vector2 speed;
-	public int score = 0;
+	public int score = -10;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
 	public bool playerWin = false;
