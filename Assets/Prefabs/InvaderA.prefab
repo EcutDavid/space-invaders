@@ -227,6 +227,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diedAudio: {fileID: 8300000, guid: 339a102ae347e4d08993b5e551f070f1, type: 3}
   score: 10
+  Particles: {fileID: 198834920575378490, guid: 712d52fe91aac4432a4b6b0520c43fe9,
+    type: 2}
 --- !u!114 &114664675172107768
 MonoBehaviour:
   m_ObjectHideFlags: 1
