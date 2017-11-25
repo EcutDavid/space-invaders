@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	public int lives = 3;
 	PlayerLivesIndicator playerLivesIndicator;
 	private Animator animator;
+	private Renderer renderer;
 
 	private float playerSafeZoneTime = 2f;
 	private float playerSafeZoneTimer = float.MaxValue;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
 	void Start() {
 		playerLivesIndicator = FindObjectOfType<PlayerLivesIndicator>();
 		animator = GetComponent<Animator> ();
+		renderer = GetComponent<Renderer> ();
 		animator.enabled = false;
 	}
 
@@ -29,6 +31,13 @@ public class Player : MonoBehaviour {
 			playerSafeZoneTimer += Time.deltaTime;
 			if (playerSafeZoneTimer >= playerSafeZoneTime) {
 				animator.enabled = false;
+				// This is a super bad way to code for sure...
+				renderer.material.color = new Vector4(
+					renderer.material.color.r,
+					renderer.material.color.g,
+					renderer.material.color.b,
+					1.0f
+				);
 			}
 		}
 		if (Input.GetKey (KeyCode.Space)) {
