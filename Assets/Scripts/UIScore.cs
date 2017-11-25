@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreUpdator : MonoBehaviour {
+public class UIScore : MonoBehaviour {
 	private GameController gameController;
 	Text textComponent;
 

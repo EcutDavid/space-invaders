@@ -10,14 +10,35 @@ public class Player : MonoBehaviour {
 	public bool died = false;
 	public int lives = 3;
 	PlayerLivesIndicator playerLivesIndicator;
+	private Animator animator;
+	private Renderer renderer;
+
+	private float playerSafeZoneTime = 2f;
+	private float playerSafeZoneTimer = float.MaxValue;
 
 	void Start() {
 		playerLivesIndicator = FindObjectOfType<PlayerLivesIndicator>();
+		animator = GetComponent<Animator> ();
+		renderer = GetComponent<Renderer> ();
+		animator.enabled = false;
 	}
 
 	void Update () {
 		if (died) {
 			return;
+		}
+		if (playerSafeZoneTimer < playerSafeZoneTime) {
+			playerSafeZoneTimer += Time.deltaTime;
+			if (playerSafeZoneTimer >= playerSafeZoneTime) {
+				animator.enabled = false;
+				// This is a super bad way to code for sure...
+				renderer.material.color = new Vector4(
+					renderer.material.color.r,
+					renderer.material.color.g,
+					renderer.material.color.b,
+					1.0f
+				);
+			}
 		}
 		if (Input.GetKey (KeyCode.Space)) {
 			var exsitingPlayerMissiles = GameObject.FindGameObjectsWithTag("PlayerMissile");
@@ -50,7 +71,7 @@ public class Player : MonoBehaviour {
 		if (died) {
 			return;
 		}
-		if (other.tag != "PlayerMissile") {
+		if (other.tag != "PlayerMissile" && playerSafeZoneTimer >= playerSafeZoneTime) {
 			Destroy (other.gameObject);
 			GetComponent<AudioSource> ().PlayOneShot (diedAudio);
 			if(lives == 1) {
@@ -58,6 +79,8 @@ public class Player : MonoBehaviour {
 				died = true;	
 			} else {
 				lives--;
+				animator.enabled = true;
+				playerSafeZoneTimer = 0;
 			}
 		}
 	}
