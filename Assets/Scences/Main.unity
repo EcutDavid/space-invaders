@@ -147,7 +147,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -17}
-  m_SizeDelta: {x: 600, y: 60}
+  m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29740087
 MonoBehaviour:
@@ -192,7 +192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Thanks for your time! \nDavid Guan"
+  m_Text: Good job :)
 --- !u!222 &29740089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -813,19 +813,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 87306ae6f000e417fa53744102150ea2, type: 3}
   cursorMode: 1
-  hotSpot: {x: 0, y: 0}
   invadersPrefabList:
   - {fileID: 1582890381070584, guid: 50b66e0a7fe00429f9ef0cc8bd3510e1, type: 2}
   - {fileID: 1892644960982792, guid: 936359f133d2f496abb6d661b874360b, type: 2}
   - {fileID: 1562731180478206, guid: 52a3cf79608f642ce9de37d90434535c, type: 2}
   padding: 1
-  speed: {x: 1.8, y: -0.7}
+  defaultInvaderSpeed: {x: 1.3, y: -0.7}
   score: 0
   missilePrefab: {fileID: 1973852932013990, guid: c45317ac30a3142a4a924dff8a4fe383,
     type: 2}
   shootAudio: {fileID: 8300000, guid: dcec8b504ba3b41df86b919034e06d93, type: 3}
   playerWin: 0
   gameLevel: 1
+  gameStarted: 0
   gameLevelMax: 4
 --- !u!4 &709303015
 Transform:
@@ -2054,8 +2054,8 @@ GameObject:
   - component: {fileID: 1957738596}
   - component: {fileID: 1957738598}
   - component: {fileID: 1957738597}
-  - component: {fileID: 1957738599}
   - component: {fileID: 1957738600}
+  - component: {fileID: 1957738599}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged

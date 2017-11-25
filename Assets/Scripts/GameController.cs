@@ -8,12 +8,12 @@ public class GameController : MonoBehaviour
 	#region cursor stuff
 	public Texture2D cursorTexture;
 	public CursorMode cursorMode = CursorMode.Auto;
-	public Vector2 hotSpot = Vector2.zero;
 	#endregion
 
 	public GameObject[] invadersPrefabList;
 	public float padding;
-	public Vector2 speed;
+	public Vector2 defaultInvaderSpeed;
+	private Vector2 invaderSpeed;
 	public int score = 0;
 	public GameObject missilePrefab;
 	public AudioClip shootAudio;
@@ -27,13 +27,14 @@ public class GameController : MonoBehaviour
 	private int missileMax = 4;
 	private float invadersResponseTimer = 0;
 	private float invadersStartFiringSecondCount = 2f;
+	private int INVADERS_ROW_COUNT = 5;
+	private int INVADERS_COL_COUNT = 11;
 
 	void Start () {
-		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+		Cursor.SetCursor(cursorTexture, Vector2.zero, cursorMode);
 	}
 
 	public void invadersStopFireAWhile() {
-		// This counter will 
 		invadersResponseTimer = 0;
 	}
 
@@ -50,11 +51,14 @@ public class GameController : MonoBehaviour
 		Cursor.visible = false;
 		invadersStopFireAWhile ();
 
+		#region game level configuration
 		gameLevel = level;
 		missileMax = 3 + gameLevel;
+		invaderSpeed = this.defaultInvaderSpeed * ((9 + gameLevel * 2) / 10.0f);
+		#endregion
 		cleanupExistingInvaders ();
-		for (int i = 0; i < 11; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < INVADERS_COL_COUNT; i++) {
+			for (int j = 0; j < INVADERS_ROW_COUNT; j++) {
 				// As a start, assume there are just three types of invaders
 				int prefabIndex = (int)Math.Floor ((float)((j + 1) / 2));
 				Instantiate<GameObject> (
@@ -106,16 +110,18 @@ public class GameController : MonoBehaviour
 			var cameraOrthographicSize = Camera.main.orthographicSize;
 			if (leftTopPoint.x < (-cameraOrthographicSize + padding) && !movingRight) {
 				movingRight = !movingRight;
-				yInc = speed.y;
+				yInc = invaderSpeed.y;
 			}
 			if (rightBottomPoint.x > (cameraOrthographicSize - padding) && movingRight) {
 				movingRight = !movingRight;
-				yInc = speed.y;
+				yInc = invaderSpeed.y;
 			}
 
+			// Make invaders move faster when their number decreases. If there are only one left, the speed is 1.5X
+			var realSpeedX = invaderSpeed.x * (1.0f + 0.5f / invaders.Length);
 			foreach (var item in invaders) {
 				item.transform.position = new Vector3 (
-					item.transform.position.x + Time.deltaTime * (movingRight ? speed.x : -speed.x),
+					item.transform.position.x + Time.deltaTime * (movingRight ? realSpeedX : -realSpeedX),
 					item.transform.position.y + yInc,
 					0f
 				);
@@ -168,7 +174,7 @@ public class GameController : MonoBehaviour
 
 		if (player.died && !Cursor.visible) {
 			Cursor.visible = true;
-			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+			Cursor.SetCursor(cursorTexture, Vector2.zero, cursorMode);
 		}
 		var gameNotHasResult = invaders.Length > 0 && player.died == false;
 		if (gameNotHasResult) {
