@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvaderController : MonoBehaviour {
+public class Invader : MonoBehaviour {
 	private bool died = false;
 	private Vector3 angularVelocity;
 	private Vector3 angle = Vector3.zero;

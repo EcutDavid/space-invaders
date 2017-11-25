@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerLivesIndicator : MonoBehaviour {
 	private bool gameStarted;
 	public GameObject LivePrefab;
-	PlayerController playerController;
+	Player playerController;
 
 	void Start() {
-		playerController = FindObjectOfType<PlayerController> ();
+		playerController = FindObjectOfType<Player> ();
 	}
 
 	public void reinitLives() {

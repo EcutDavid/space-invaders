@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class AnimateMesh : MonoBehaviour {
+public class AnimateSharedMesh : MonoBehaviour {
 	public MeshFilter[] prefabList;
 	private float timeCounter;
 	private int meshSwithcer = 0;

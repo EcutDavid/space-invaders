@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Win : MonoBehaviour {
+public class UIWin : MonoBehaviour {
 	private bool restartingHandled = false;
 
 	void Start () {

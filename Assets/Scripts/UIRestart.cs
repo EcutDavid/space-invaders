@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RestartController : MonoBehaviour {
+public class UIRestart : MonoBehaviour {
 	private bool restartingHandled = false;
 	private bool reinited = false;
 
@@ -9,7 +9,7 @@ public class RestartController : MonoBehaviour {
 	}
 	
 	void Update () {
-		var player = FindObjectOfType<PlayerController> ();
+		var player = FindObjectOfType<Player> ();
 		if (player.died && !restartingHandled) {
 			gameObject.transform.position = new Vector3 (
 				gameObject.transform.position.x - 999f,

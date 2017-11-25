@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
 	public void cleanAndRestart() {
 		gameStarted = true;
 		score = 0;
-		var player = FindObjectOfType<PlayerController> ();
+		var player = FindObjectOfType<Player> ();
 		player.reborn ();
 		player.died = false;
 		startNewLevel ();
@@ -126,7 +126,7 @@ public class GameController : MonoBehaviour
 					0f
 				);
 				if (Math.Abs (item.transform.position.y) > (cameraOrthographicSize + 0.4)) {
-					FindObjectOfType<PlayerController> ().died = true;
+					FindObjectOfType<Player> ().died = true;
 				}
 			}
 		}
@@ -170,7 +170,7 @@ public class GameController : MonoBehaviour
 	void Update ()
 	{
 		var invaders = GameObject.FindGameObjectsWithTag ("Invader");
-		var player = FindObjectOfType<PlayerController> ();
+		var player = FindObjectOfType<Player> ();
 
 		if (player.died && !Cursor.visible) {
 			Cursor.visible = true;
