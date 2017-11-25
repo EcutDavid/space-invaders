@@ -5,9 +5,11 @@ using System;
 
 public class GameController : MonoBehaviour
 {
+	#region cursor stuff
 	public Texture2D cursorTexture;
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
+	#endregion
 
 	public GameObject[] invadersPrefabList;
 	public float padding;
@@ -17,6 +19,8 @@ public class GameController : MonoBehaviour
 	public AudioClip shootAudio;
 	public bool playerWin = false;
 	public int gameLevel = 1;
+	// Sorry for one more flag...
+	public bool gameStarted = false;
 	public int gameLevelMax = 4;
 
 	private bool movingRight = false;
@@ -29,10 +33,12 @@ public class GameController : MonoBehaviour
 	}
 
 	public void invadersStopFireAWhile() {
+		// This counter will 
 		invadersResponseTimer = 0;
 	}
 
 	public void cleanAndRestart() {
+		gameStarted = true;
 		score = 0;
 		var player = FindObjectOfType<PlayerController> ();
 		player.reborn ();

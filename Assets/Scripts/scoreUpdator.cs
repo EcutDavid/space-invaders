@@ -3,12 +3,16 @@ using UnityEngine.UI;
 
 public class ScoreUpdator : MonoBehaviour {
 	private GameController gameController;
+	Text textComponent;
 
 	void Start () {
 		gameController = FindObjectOfType<GameController> ();
+		textComponent = GetComponent<Text> ();
 	}
-	
+
 	void Update () {
-		GetComponent<Text> ().text = "Your Score: " + gameController.score.ToString ();
+		if (gameController.gameStarted) {
+			textComponent.text = "Score: " + gameController.score.ToString ();
+		}
 	}
 }
